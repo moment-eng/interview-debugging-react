@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# Technical Interview: Debugging
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
 
-## Available Scripts
+This repository is a to do list [SPA](https://developer.mozilla.org/en-US/docs/Glossary/SPA) using [React](https://reactjs.org) for the UI layer. The back-end is a [CRUD](https://developer.mozilla.org/en-US/docs/Glossary/CRUD) api.
 
-In the project directory, you can run:
+The `/todo` endpoint for the API is artificially slowed down to ~2s response times to make UI sequences more visible.
 
-### `npm start`
+## Requirements
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-   Node.js
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Optional:
 
-### `npm test`
+-   [gh](http://cli.github.com)
+-   [just](https://github.com/casey/just)
+-   [fnm](https://github.com/Schniz/fnm)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+1: Clone repository
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+# with 'gh' cli
+gh repo clone moment-eng/interview-debugging-frontend
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# with git
+git clone https://github.com/moment-eng/interview-debugging-frontend.git
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2: Install dependencies
 
-### `npm run eject`
+```sh
+# with npm
+npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# with yarn
+yarn install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# with just
+just install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3: Launch dev server
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```sh
+# with npm
+npm run dev
 
-## Learn More
+# with yarn
+yarn dev
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# with just
+just dev
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Front-end is available at: http://localhost:3000
 
-### Code Splitting
+API is available at: http://localhost:3333
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## API Endpoints
 
-### Analyzing the Bundle Size
+| Path  | Method | Description                                                | Example Request Body                            | Example Response Body                                            |
+| :---- | :----- | :--------------------------------------------------------- | :---------------------------------------------- | ---------------------------------------------------------------- |
+| /     | GET    | "Hello, World". Useful for testing that the API is running | n/a                                             | `"Hello, World"`                                                 |
+| /todo | POST   | Creates a new to do entry and returns created object       | `{description: 'Foo'}`                          | `{id: 'abc-123', status: 'todo', description: 'Foo'}`            |
+| /todo | GET    | Returns list of to do entries                              | n/a                                             | `{todos: [{id: 'abc-123', status: 'todo', description: 'Foo}]}`  |
+| /todo | PUT    | Updates to do entry and returns updated object             | `{id: 'abc-123', description: 'Hello, World' }` | `{id: 'abc-123', status: 'todo', description: 'Hello, World' } ` |
+| /todo | DELETE | Removes to do entry and returns list of to do entries      | `{id: 'abc-123'}`                               | `{todos: []}`                                                    |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Notes
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-   [React documentation](https://reactjs.org/)
+-   [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started)
+-   [Fastify documentation](https://www.fastify.io/docs/)

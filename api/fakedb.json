@@ -1,0 +1,29 @@
+{
+    "todos": [
+        {
+            "status": "completed",
+            "description": "Apples",
+            "id": "33b28ef2-213a-464a-954c-b9c03d933107"
+        },
+        {
+            "status": "todo",
+            "description": "Bananas",
+            "id": "e5b9d41e-dfb0-4ca2-84cc-e8e2d48b029b"
+        },
+        {
+            "status": "todo",
+            "description": "Oranges",
+            "id": "6f4814bc-ae9f-4342-a851-b5e64a12871e"
+        },
+        {
+            "status": "todo",
+            "description": "Lemons",
+            "id": "03f18b8c-2ef3-43a6-bc4a-c3e8572f82d7"
+        },
+        {
+            "status": "todo",
+            "description": "Pears",
+            "id": "5905a953-bf52-4d58-9694-efd931a41e35"
+        }
+    ]
+}
