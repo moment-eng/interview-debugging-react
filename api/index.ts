@@ -1,9 +1,9 @@
-import { promises as fsp } from 'fs'
-import path from 'path'
-import { promisify } from 'util'
-import FastestValidator from 'fastest-validator'
-import Fastify from 'fastify'
-import { randomUUID } from 'crypto'
+import { promises as fsp } from "fs";
+import path from "path";
+import { promisify } from "util";
+import FastestValidator from "fastest-validator";
+import Fastify from "fastify";
+import { randomUUID } from "crypto";
 
 /**
  * types
@@ -12,190 +12,201 @@ type ToDoItem = {
     id: string;
     status: string;
     description: string;
-}
+};
 
 /**
  * constants
  */
-const FAKE_DB = path.resolve(__dirname, 'fakedb.json')
-const PORT = 3333
-const DELAY_SPEED = 2000
+const FAKE_DB = path.resolve(__dirname, "fakedb.json");
+const PORT = 3333;
+const DELAY_SPEED = 2000;
 
 /**
  * utility functions
  */
-const delay = promisify(setTimeout)
-const generateId = () => randomUUID()
+const delay = promisify(setTimeout);
+const generateId = () => randomUUID();
+const createJSONString = (input: any) => JSON.stringify(input, null, 4);
 
 /**
  * validation tooling
  */
-const validator = new FastestValidator()
+const validator = new FastestValidator();
 
 // schema for todo items
 const itemSchema = {
-    id: 'string',
-    status: {type: 'string', enum: ['completed', 'todo']},
-    description: 'string'
-}
+    id: "string",
+    status: { type: "string", enum: ["completed", "todo"] },
+    description: "string",
+};
 
 // schema for fake db
 const bodySchema = {
     todos: {
-        type: 'array',
+        type: "array",
         items: {
-            type: 'object',
-            props: itemSchema
-        }
-    }
-}
+            type: "object",
+            props: itemSchema,
+        },
+    },
+};
 
-const checkBody = validator.compile(bodySchema)
-const checkItem = validator.compile(itemSchema)
-
+const checkBody = validator.compile(bodySchema);
+const checkItem = validator.compile(itemSchema);
 
 /**
  * fastify
  */
 const fastify = Fastify({
-    logger: true
-})
-
-fastify.register(require('fastify-cors'), {
-  origin: "*"
-})
-
-fastify.addHook('onSend', (req, reply, payload, next) => { 
-    reply.header("Access-Control-Allow-Origin", "*"); 
-    reply.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin, Cache-Control"); 
-    next() 
+    logger: true,
 });
 
-fastify.get('/', (_, response) => {
-    response.send('Hello, World')
-})
+fastify.register(require("fastify-cors"), {
+    origin: "*",
+});
 
-fastify.get('/todo', async () => {
-    await delay(DELAY_SPEED)
-    const todos = await fsp.readFile(FAKE_DB, { encoding: 'utf-8' })
-    const json: { todos: Array<{ status: string; id: number, description: string }> } = JSON.parse(todos)
+fastify.addHook("onSend", (req, reply, payload, next) => {
+    reply.header("Access-Control-Allow-Origin", "*");
+    reply.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin, Cache-Control"
+    );
+    next();
+});
 
-    const validation = await checkBody(json)
+fastify.get("/", (_, response) => {
+    response.send("Hello, World");
+});
+
+fastify.get("/todo", async () => {
+    await delay(DELAY_SPEED);
+    const todos = await fsp.readFile(FAKE_DB, { encoding: "utf-8" });
+    const json: {
+        todos: Array<{ status: string; id: number; description: string }>;
+    } = JSON.parse(todos);
+
+    const validation = await checkBody(json);
 
     if (validation !== true) {
-        throw new Error(validation.map(err => err.message).join('; '))
+        throw new Error(validation.map((err) => err.message).join("; "));
     }
 
-    return json
-})
+    return json;
+});
 
 fastify.post<{
-    Body: Omit<ToDoItem, 'id'>
-}>('/todo', async (request) => {
-    console.log(request.body)
-    console.log(request.headers)
-    await delay(DELAY_SPEED)
+    Body: Omit<ToDoItem, "id">;
+}>("/todo", async (request) => {
+    await delay(DELAY_SPEED);
 
     const payload = {
-        status: 'todo', // default status
-        ...request.body, // override status, provide description 
-        id: generateId() // provide a UUID
-    }
+        status: "todo", // default status
+        ...request.body, // override status, provide description
+        id: generateId(), // provide a UUID
+    };
 
-    console.log(payload)
-
-    const validation = await checkItem(payload)
+    const validation = await checkItem(payload);
 
     if (validation !== true) {
-        throw new Error(validation.map(err => err.message).join('; '))
+        throw new Error(validation.map((err) => err.message).join("; "));
     }
 
-    const todos = await fsp.readFile(FAKE_DB, { encoding: 'utf-8' })
+    const todos = await fsp.readFile(FAKE_DB, { encoding: "utf-8" });
 
-    const json = JSON.parse(todos) as { todos: Array<{[key: string]: string}> }
+    const json = JSON.parse(todos) as {
+        todos: Array<{ [key: string]: string }>;
+    };
 
-    const output = { todos: [...json.todos, payload] }
+    const output = { todos: [...json.todos, payload] };
 
-    await fsp.writeFile(FAKE_DB, JSON.stringify(output), { encoding: 'utf-8' })
+    await fsp.writeFile(FAKE_DB, createJSONString(output), {
+        encoding: "utf-8",
+    });
 
-    return payload
-})
+    return payload;
+});
 
 fastify.delete<{
-    Body: Partial<ToDoItem>
-}>('/todo', async(request)=>{
-    await delay(DELAY_SPEED)
+    Body: Partial<ToDoItem>;
+}>("/todo", async (request) => {
+    await delay(DELAY_SPEED);
 
-    const id = request.body?.id
+    const id = request.body?.id;
 
-    if(!id){
-        throw new Error(`No ID provided: ${JSON.stringify(request.body)}`)
+    if (!id) {
+        throw new Error(`No ID provided: ${JSON.stringify(request.body)}`);
     }
 
-    const todos = await fsp.readFile(FAKE_DB, { encoding: 'utf-8' })
-    const json = JSON.parse(todos) as { todos: Array<{[key: string]: string}> }
+    const todos = await fsp.readFile(FAKE_DB, { encoding: "utf-8" });
+    const json = JSON.parse(todos) as {
+        todos: Array<{ [key: string]: string }>;
+    };
 
-    const todoToDeleteIndex = json.todos.findIndex(todo => todo.id === id)
+    const todoToDeleteIndex = json.todos.findIndex((todo) => todo.id === id);
 
-    if(todoToDeleteIndex < 0){
-        throw new Error(`To do item with id ${id} not found.`)
+    if (todoToDeleteIndex < 0) {
+        throw new Error(`To do item with id ${id} not found.`);
     }
 
-    console.log(todoToDeleteIndex)
+    json.todos.splice(todoToDeleteIndex, 1);
 
-    json.todos.splice(todoToDeleteIndex, 1)
+    const output = { todos: [...json.todos] };
 
-    const output = {todos: [...json.todos]}
+    await fsp.writeFile(FAKE_DB, createJSONString(output), {
+        encoding: "utf-8",
+    });
 
-    await fsp.writeFile(FAKE_DB, JSON.stringify(output), { encoding: 'utf-8' })
-
-    return output
-})
+    return output;
+});
 
 fastify.put<{
-    Body: Partial<ToDoItem>
-}>('/todo', async (request) => {
-    await delay(DELAY_SPEED)
-    const payload: {[key: string]: any} = Object.assign({}, request.body)
-    
-    const id = payload.id
+    Body: Partial<ToDoItem>;
+}>("/todo", async (request) => {
+    await delay(DELAY_SPEED);
+    const payload: { [key: string]: any } = Object.assign({}, request.body);
 
-    if(!id){
-        throw new Error(`No ID provided: ${JSON.stringify(request.body)}`)
+    const id = payload.id;
+
+    if (!id) {
+        throw new Error(`No ID provided: ${JSON.stringify(request.body)}`);
     }
 
-    const todos = await fsp.readFile(FAKE_DB, { encoding: 'utf-8' })
-    const json = JSON.parse(todos) as { todos: Array<{[key: string]: string}> }
+    const todos = await fsp.readFile(FAKE_DB, { encoding: "utf-8" });
+    const json = JSON.parse(todos) as {
+        todos: Array<{ [key: string]: string }>;
+    };
 
-    const todoToUpdateIndex = json.todos.findIndex(todo => todo.id === id)
+    const todoToUpdateIndex = json.todos.findIndex((todo) => todo.id === id);
 
-    if(todoToUpdateIndex < 0){
-        throw new Error(`To do item with id ${id} not found.`)
+    if (todoToUpdateIndex < 0) {
+        throw new Error(`To do item with id ${id} not found.`);
     }
 
     // combine objects
-    const updatedTodo = Object.assign(json.todos[todoToUpdateIndex], payload)
+    const updatedTodo = Object.assign(json.todos[todoToUpdateIndex], payload);
 
-    const validation = await checkItem(updatedTodo)
+    const validation = await checkItem(updatedTodo);
 
     if (validation !== true) {
-        throw new Error(validation.map(err => err.message).join('; '))
+        throw new Error(validation.map((err) => err.message).join("; "));
     }
 
-    json.todos[todoToUpdateIndex] = updatedTodo
+    json.todos[todoToUpdateIndex] = updatedTodo;
 
-    const output = {todos: json.todos}
+    const output = { todos: json.todos };
 
-    await fsp.writeFile(FAKE_DB, JSON.stringify(output), { encoding: 'utf-8' })
+    await fsp.writeFile(FAKE_DB, createJSONString(output), {
+        encoding: "utf-8",
+    });
 
-    return output
-})
+    return output;
+});
 
 fastify.listen(PORT, (err, address) => {
     if (err) {
-        fastify.log.error(err)
-        process.exit(1)
+        fastify.log.error(err);
+        process.exit(1);
     }
 
-    console.log(`now listening at ${address}`)
-})
+    console.log(`now listening at ${address}`);
+});
