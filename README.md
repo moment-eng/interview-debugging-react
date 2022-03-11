@@ -22,10 +22,10 @@ Optional:
 
 ```sh
 # with 'gh' cli
-gh repo clone moment-eng/interview-debugging-frontend
+gh repo clone moment-eng/interview-debugging-react
 
 # with git
-git clone https://github.com/moment-eng/interview-debugging-frontend.git
+git clone https://github.com/moment-eng/interview-debugging-react.git
 ```
 
 2: Install dependencies
