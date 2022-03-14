@@ -8,8 +8,8 @@ import concurrently, { Command, ConcurrentlyOptions } from "concurrently";
  */
 const init = async () => {
   const commands: Partial<Command>[] = [
-    { command: "npm run start", name: "react" },
-    { command: "npm run start:api", name: "api" },
+    { command: "npm run react:start", name: "react" },
+    { command: "npm run api:start", name: "api" },
   ];
 
   const options: Partial<ConcurrentlyOptions> = {

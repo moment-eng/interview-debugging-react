@@ -100,7 +100,6 @@ fastify.post<{
     await delay(DELAY_SPEED);
 
     const payload = {
-        status: "todo", // default status
         ...request.body, // override status, provide description
         id: generateId(), // provide a UUID
     };
