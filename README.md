@@ -28,7 +28,7 @@ gh repo clone moment-eng/interview-debugging-react
 git clone https://github.com/moment-eng/interview-debugging-react.git
 ```
 
-2: Ensure you have correct version of Node.js installed. We recommned [`fnm` (fast node manager)](https://github.com/Schniz/fnm) or [`nvm` (node version manager)](https://github.com/nvm-sh/nvm).
+2: Ensure you have correct version of Node.js installed. We recommned [`fnm` (fast node manager)](https://github.com/Schniz/fnm) or [`nvm` (node version manager)](https://github.com/nvm-sh/nvm). You can also download 16.11.1 directly from [https://nodejs.org/download/release/v16.11.1/](https://nodejs.org/download/release/v16.11.1/)
 
 ```sh
 node --version
