@@ -30,7 +30,7 @@ git clone https://github.com/moment-eng/interview-debugging-react.git
 
 2: Ensure you have correct version of Node.js installed. We recommned [`fnm` (fast node manager)](https://github.com/Schniz/fnm) or [`nvm` (node version manager)](https://github.com/nvm-sh/nvm).
 
-```
+```sh
 node --version
 # should print out "v16.11.1"
 
