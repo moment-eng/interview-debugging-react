@@ -8,7 +8,7 @@ The `/todo` endpoint for the API is artificially slowed down to ~2s response tim
 
 ## Requirements
 
--   Node.js
+-   Node.js (v16.11.1)
 
 Optional:
 
@@ -28,7 +28,20 @@ gh repo clone moment-eng/interview-debugging-react
 git clone https://github.com/moment-eng/interview-debugging-react.git
 ```
 
-2: Install dependencies
+2: Ensure you have correct version of Node.js installed. We recommned [`fnm` (fast node manager)](https://github.com/Schniz/fnm) or [`nvm` (node version manager)](https://github.com/nvm-sh/nvm).
+
+```
+node --version
+# should print out "v16.11.1"
+
+# set correct version with fnm
+fnm use $(cat .nvmrc)
+
+# set correct version with nvm
+nvm use $(cat .nvmrc)
+```
+
+3: Install dependencies
 
 ```sh
 # with npm
@@ -41,7 +54,7 @@ yarn install
 just install
 ```
 
-3: Launch dev server
+4: Launch dev server
 
 ```sh
 # with npm
