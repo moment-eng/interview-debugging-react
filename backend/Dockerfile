@@ -1,0 +1,3 @@
+FROM node:18.3.0
+
+EXPOSE 3001

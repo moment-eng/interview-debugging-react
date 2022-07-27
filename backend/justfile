@@ -1,0 +1,11 @@
+install:
+    npm install 
+    
+start:
+    npx ts-node ./src/index.ts
+
+dev:
+    npx nodemon ./src/index.ts
+
+format:
+    npx prettier --write ./src/**/*.ts

@@ -18,7 +18,7 @@ type ToDoItem = {
  * constants
  */
 const FAKE_DB = path.resolve(__dirname, "fakedb.json");
-const PORT = 3333;
+const PORT = process.env.PORT || 3001;
 const DELAY_SPEED = 2000;
 
 /**
@@ -61,7 +61,7 @@ const fastify = Fastify({
     logger: true,
 });
 
-fastify.register(require("fastify-cors"), {
+fastify.register(require("@fastify/cors"), {
     origin: "*",
 });
 
@@ -202,7 +202,7 @@ fastify.put<{
     return output;
 });
 
-fastify.listen(PORT, (err, address) => {
+fastify.listen(PORT, "0.0.0.0", (err, address) => {
     if (err) {
         fastify.log.error(err);
         process.exit(1);

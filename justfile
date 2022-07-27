@@ -1,8 +1,14 @@
+run: docker-running
+    docker-compose up
+
 install:
-    npm install
+    just frontend/install
+    just backend/install
 
-dev:
-    npm run dev
+format:
+    just frontend/format
+    just backend/format
 
-lint:
-    npm run lint
+# Checks if docker is running, will fail if not
+docker-running:
+    docker ps
