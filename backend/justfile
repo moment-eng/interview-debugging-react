@@ -1,3 +1,6 @@
+install:
+    npm install 
+    
 start:
     npx ts-node ./src/index.ts
 

@@ -24,6 +24,11 @@
             "status": "todo",
             "description": "Pears",
             "id": "5905a953-bf52-4d58-9694-efd931a41e35"
+        },
+        {
+            "status": "todo",
+            "description": "",
+            "id": "a4ac9ea2-c55e-42fb-8649-a918548de8fd"
         }
     ]
 }

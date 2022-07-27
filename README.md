@@ -8,13 +8,14 @@ The `/todo` endpoint for the API is artificially slowed down to ~2s response tim
 
 ## Requirements
 
--   Node.js (v16.11.1)
+-   [Docker](https://docs.docker.com/get-docker/)
+-   Node.js (v18.3.0)
+-   [just](https://github.com/casey/just)
+-   [fnm](https://github.com/Schniz/fnm)
 
 Optional:
 
 -   [gh](http://cli.github.com)
--   [just](https://github.com/casey/just)
--   [fnm](https://github.com/Schniz/fnm)
 
 ## Getting Started
 
@@ -28,11 +29,11 @@ gh repo clone moment-eng/interview-debugging-react
 git clone https://github.com/moment-eng/interview-debugging-react.git
 ```
 
-2: Ensure you have correct version of Node.js installed. We recommned [`fnm` (fast node manager)](https://github.com/Schniz/fnm) or [`nvm` (node version manager)](https://github.com/nvm-sh/nvm). You can also download 16.11.1 directly from [https://nodejs.org/download/release/v16.11.1/](https://nodejs.org/download/release/v16.11.1/)
+2: Ensure you have correct version of Node.js installed. We recommned [`fnm` (fast node manager)](https://github.com/Schniz/fnm) or [`nvm` (node version manager)](https://github.com/nvm-sh/nvm). You can also download 18.3.0 directly from [https://nodejs.org/download/release/v18.3.0/](https://nodejs.org/download/release/v18.3.0/)
 
 ```sh
 node --version
-# should print out "v16.11.1"
+# should print out "v18.3.0"
 
 # set correct version with fnm
 fnm use $(cat .nvmrc)
@@ -44,32 +45,22 @@ nvm use $(cat .nvmrc)
 3: Install dependencies
 
 ```sh
-# with npm
-npm install
-
-# with yarn
-yarn install
-
-# with just
+# in root directory
 just install
 ```
 
-4: Launch dev server
+4: Launch services
 
 ```sh
-# with npm
-npm run dev
-
-# with yarn
-yarn dev
-
-# with just
-just dev
+# in root directory
+just run
 ```
 
 Front-end is available at: http://localhost:3000
 
-API is available at: http://localhost:3333
+API is available at: http://localhost:3001
+
+Both the Front-end and API are setup to support hot reloading when changes to files are made.
 
 ## API Endpoints
 

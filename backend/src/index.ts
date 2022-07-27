@@ -207,6 +207,6 @@ fastify.listen(PORT, "0.0.0.0", (err, address) => {
         fastify.log.error(err);
         process.exit(1);
     }
-    console.log(`🚀`);
+
     console.log(`now listening at ${address}`);
 });
