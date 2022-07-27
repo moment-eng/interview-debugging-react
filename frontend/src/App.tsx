@@ -5,7 +5,7 @@ import { Context, ContextProps } from "./Context";
 import { ToDo } from "./types/ToDo";
 import { Clipboard } from "phosphor-react";
 
-const API = "//localhost:3333/todo";
+const API = "//localhost:3001/todo";
 
 function App() {
     const [todos, setTodos] = useState<ToDo[]>([]);

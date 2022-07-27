@@ -1,8 +1,6 @@
-install:
-    npm install
+run:
+    docker-compose up
 
-dev:
-    npm run dev
-
-lint:
-    npm run lint
+format:
+    just frontend/format
+    just backend/format
