@@ -1,0 +1,5 @@
+start:
+    go run ./main.go
+
+dev:
+    go run ./main_dev.go
