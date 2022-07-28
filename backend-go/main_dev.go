@@ -82,7 +82,7 @@ func fileWatcher() {
 	}
 }
 
-func main() {
+func maindev() {
 	pathToMonitor = "./"
 
 	// First we get MD5 hashes of all the files we want to monitor

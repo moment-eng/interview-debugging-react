@@ -19,4 +19,6 @@ services:
   backend:
     build: ./backend-go
     container_name: moment-interview-debugging-react-backend-go
-    command: sh -c "go help"
+    command: sh -c "./$GOPATH/github.com/moment-eng/backend-go/backend"
+    ports:
+      - "3001:3001"
