@@ -5,7 +5,7 @@ start:
     npx ts-node ./src/index.ts
 
 dev:
-    npx nodemon ./src/index.ts
+    npx nodemon --ignore src/fakedb.json ./src/index.ts
 
 format:
     npx prettier --write ./src/**/*.ts
