@@ -19,7 +19,7 @@ type ToDoItem = {
  */
 const FAKE_DB = path.resolve(__dirname, "fakedb.json");
 const PORT = process.env.PORT || 3001;
-const DELAY_SPEED = 2000;
+const DELAY_SPEED = 500;
 
 /**
  * utility functions

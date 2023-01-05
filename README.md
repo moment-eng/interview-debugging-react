@@ -4,7 +4,7 @@
 
 This repository is a to do list [SPA](https://developer.mozilla.org/en-US/docs/Glossary/SPA) using [React](https://reactjs.org) for the UI layer. The back-end is a [CRUD](https://developer.mozilla.org/en-US/docs/Glossary/CRUD) api.
 
-The `/todo` endpoint for the API is artificially slowed down to ~2s response times to make UI sequences more visible.
+The `/todo` endpoint for the API is artificially slowed down to ~0.5s response times to make UI sequences more visible.
 
 ## Requirements
 
