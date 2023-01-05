@@ -19,42 +19,44 @@ Optional:
 
 ## Getting Started
 
-1: Clone repository
+1. Clone repository
 
-```sh
-# with 'gh' cli
-gh repo clone moment-eng/interview-debugging-react
+    ```sh
+    # with 'gh' cli
+    gh repo clone moment-eng/interview-debugging-react
 
-# with git
-git clone https://github.com/moment-eng/interview-debugging-react.git
-```
+    # with git
+    git clone https://github.com/moment-eng/interview-debugging-react.git
+    ```
 
-2: Ensure you have correct version of Node.js installed. We recommned [`fnm` (fast node manager)](https://github.com/Schniz/fnm) or [`nvm` (node version manager)](https://github.com/nvm-sh/nvm). You can also download 18.3.0 directly from [https://nodejs.org/download/release/v18.3.0/](https://nodejs.org/download/release/v18.3.0/)
+1. Ensure you have correct version of Node.js installed. We recommned [`fnm` (fast node manager)](https://github.com/Schniz/fnm) or [`nvm` (node version manager)](https://github.com/nvm-sh/nvm). You can also download 18.3.0 directly from [https://nodejs.org/download/release/v18.3.0/](https://nodejs.org/download/release/v18.3.0/)
 
-```sh
-node --version
-# should print out "v18.3.0"
+    ```sh
+    node --version
+    # should print out "v18.3.0"
 
-# set correct version with fnm
-fnm use $(cat .nvmrc)
+    # set correct version with fnm
+    fnm use $(cat .nvmrc)
 
-# set correct version with nvm
-nvm use $(cat .nvmrc)
-```
+    # set correct version with nvm
+    nvm use $(cat .nvmrc)
+    ```
 
-3: Install dependencies
+1. Install dependencies
 
-```sh
-# in root directory
-just install
-```
+    ```sh
+    # in root directory
+    just install
+    ```
 
-4: Launch services
+1. Start the Docker application
 
-```sh
-# in root directory
-just run
-```
+1. Launch services
+
+    ```sh
+    # in root directory
+    just run
+    ```
 
 Front-end is available at: http://localhost:3000
 
